@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/03 16:17:33 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:27:13 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,26 @@ void	parse(int argc, char **argv, t_data *data)
 	data->sleep_time = ft_atoi(argv[4]);
 	if (argc != 5)
 		data->eat_count = ft_atoi(argv[5]);
+	else
+		data->eat_count = -1;
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
-	mt_init(data);
 	philo_parse(data);
+	mt_init(data);
+	philo_mt_parse(data);
+}
+
+static void	philo_parse(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->ph_count)
+	{
+		data->philos[i].death_cont = data->die_time;
+		data->philos[i].eat_count = 0;
+		//ölüm için kalan zaman sayımına burada başlamalı mıyım ?
+	}
 }
 
 static void	mt_init(t_data *data)
@@ -43,7 +59,7 @@ static void	mt_init(t_data *data)
 		pthread_mutex_init(&(data->forks[i]), NULL);
 }
 
-static void	philo_parse(t_data *data)
+static void	philo_mt_parse(t_data *data)
 {
 	int	f;
 	int	l;
