@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/03 15:49:30 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:17:33 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,32 @@ void	parse(int argc, char **argv, t_data *data)
 		data->eat_count = ft_atoi(argv[5]);
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
+	mt_init(data);
 	philo_parse(data);
 }
 
-void	philo_parse(t_data *data)
+static void	mt_init(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->ph_count)
+		pthread_mutex_init(&(data->forks[i]), NULL);
+}
+
+static void	philo_parse(t_data *data)
 {
 	int	f;
 	int	l;
 
-	f = 0;
+	f = -1;
 	l = data->ph_count - 1;
-	while(f <= l)
+	while(++f <= l)
 	{
 		if (f == 0)
-			data->philos[0]->left =
+			data->philos[f].left = data->forks[l];
+		else
+			data->philos[f].left = data->forks[f - 1];
+		data->philos[f].right = data->forks[f];
 	}
-
-
 }
