@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/03 14:23:47 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:05:47 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,17 @@ int	ft_strlen(char *s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+void	thread_begin(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (i++ < data->ph_count)
+	{
+		data->thrror_action = pthread_create(&(data->philos[i].action), NULL, \
+		life_process, &(data->philos[i]));
+		//ölüm sayacını burada mı başlatmalı mıyım emin değilim.
+	}
 }

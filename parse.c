@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 16:38:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:58:49 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	philo_parse(t_data *data)
 	i = -1;
 	while (++i < data->ph_count)
 	{
-		data->philos[i].death_cont = data->die_time;
+		data->philos[i].death_t = data->die_time;
 		data->philos[i].eat_count = 0;
 		data->philos[i].flag_dead = 0;
 		data->philos[i].ph = i + 1;

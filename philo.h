@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 16:36:27 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:01:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 
 typedef struct s_philo {
 	int				ph;
+	pthread_t		action;
 	pthread_t		death_cont;
-	int				death_t; // geri sayım için devamlı güncellenen ölüm
+	int				death_time; // geri sayım için devamlı güncellenen ölüm
 	int				eat_count;
 	int				flag_dead;
 	long long		last_action;
@@ -38,7 +39,8 @@ typedef struct s_data {
 	int				sleep_time;
 	int				eat_count;
 	long long		beg_time;
-	int				thr_error;
+	int				thrror_action;
+	int				thrror_death;
 	pthread_mutex_t	*forks;
 }					t_data;
 
@@ -48,5 +50,6 @@ int		ft_strlen(char *s);
 void	exit_prog(char *str);
 int		ft_atoi(const char *s);
 void	parse(int argc, char **argv, t_data *data);
+void	thread_begin(t_data *data);
 
 #endif
