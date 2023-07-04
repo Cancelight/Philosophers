@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/03 15:17:12 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:36:27 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@
 # include <sys/time.h>
 
 typedef struct s_philo {
+	int				ph;
 	pthread_t		death_cont;
-	long long		last_eat;
-	int				death_t;
+	int				death_t; // geri sayım için devamlı güncellenen ölüm
 	int				eat_count;
+	int				flag_dead;
+	long long		last_action;
 	pthread_mutex_t	right;
 	pthread_mutex_t	left;
-}	t_philo;
+}					t_philo;
 
 typedef struct s_data {
 	t_philo			*philos;
@@ -36,6 +38,7 @@ typedef struct s_data {
 	int				sleep_time;
 	int				eat_count;
 	long long		beg_time;
+	int				thr_error;
 	pthread_mutex_t	*forks;
 }					t_data;
 
