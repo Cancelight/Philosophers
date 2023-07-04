@@ -6,11 +6,27 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 17:05:47 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:23:34 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	thread_begin(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (i++ < data->ph_count)
+	{
+		data->thrror_action = pthread_create(&(data->philos[i].action), NULL, \
+		life_process, &(data->philos[i]));
+		data->thrror_death = pthread_create(&(data->philos[i].death_ch), NULL, \
+		death_check, &(data->philos[i]));
+		if (!data->thrror_action || !data->thrror_death)
+			exit_prog("threads are not created succesfully.");
+	}
+}
 
 int	ft_isdigit(char *str)
 {
@@ -64,17 +80,4 @@ int	ft_strlen(char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-void	thread_begin(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (i++ < data->ph_count)
-	{
-		data->thrror_action = pthread_create(&(data->philos[i].action), NULL, \
-		life_process, &(data->philos[i]));
-		//ölüm sayacını burada mı başlatmalı mıyım emin değilim.
-	}
 }
