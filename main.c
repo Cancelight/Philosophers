@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 16:53:03 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:36:07 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void nav(t_data *data)
 	if (data->ph_count == 1)
 		write(1, "bir philo için fonksiyon", 20);
 	else if (data->ph_count > 1)
-		threads_begin(data);
+		thread_begin(data);
 }

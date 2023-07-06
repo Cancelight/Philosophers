@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 16:58:49 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:32:35 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,36 @@ void	parse(int argc, char **argv, t_data *data)
 	data->eat_time = ft_atoi(argv[3]);
 	data->sleep_time = ft_atoi(argv[4]);
 	if (argc != 5)
-		data->eat_count = ft_atoi(argv[5]);
+		data->tot_eat = ft_atoi(argv[5]);
 	else
-		data->eat_count = -1;
+		data->tot_eat = -1;
+	data->death_start = 0;
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
-	tphilo_parse(data);
+	printf("bb:%p", data);
+	philo_parse(data);
 	mt_init(data);
 	philo_mt_parse(data);
 }
 
-static void	philo_parse(t_data *data)
+void	philo_parse(t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->ph_count)
 	{
-		data->philos[i].death_t = data->die_time;
-		data->philos[i].eat_count = 0;
+		data->philos[i].death_time = data->die_time;
+		data->philos[i].eat_cnt = 0;
 		data->philos[i].flag_dead = 0;
 		data->philos[i].ph = i + 1;
+		data->philos[i].info = data;
 	}
+	printf("aa:%p", data->philos[0].info);
+	exit(0);
 }
 
-static void	mt_init(t_data *data)
+void	mt_init(t_data *data)
 {
 	int	i;
 
@@ -52,7 +57,7 @@ static void	mt_init(t_data *data)
 		pthread_mutex_init(&(data->forks[i]), NULL);
 }
 
-static void	philo_mt_parse(t_data *data)
+void	philo_mt_parse(t_data *data)
 {
 	int	f;
 	int	l;

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 17:25:35 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:37:02 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,32 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
-typedef struct s_philo {
-	int				ph;
-	pthread_t		action;
-	pthread_t		death_ch;
-	int				death_time; // geri sayım için devamlı güncellenen ölüm
-	int				eat_count;
-	int				flag_dead;
-	long long		last_action;
-	pthread_mutex_t	right;
-	pthread_mutex_t	left;
-}					t_philo;
-
 typedef struct s_data {
 	t_philo			*philos;
 	int				ph_count;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				eat_count;
+	int				tot_eat;
 	long long		beg_time;
 	int				thrror_action;
 	int				thrror_death;
-	int				start;
+	pthread_t		death_ch;
+	int				death_start; // death threadinin başlama durumu için flag
 	pthread_mutex_t	*forks;
 }					t_data;
+
+typedef struct s_philo {
+	int				ph;
+	pthread_t		action;
+	int				death_time; // geri sayım için devamlı güncellenen ölüm
+	int				eat_cnt;
+	int				flag_dead;
+	long long		last_action;
+	t_data			*info;
+	pthread_mutex_t	right;
+	pthread_mutex_t	left;
+}					t_philo;
 
 void	error_check(int argc, char **argv);
 int		ft_isdigit(char *str);
@@ -54,5 +55,11 @@ void	parse(int argc, char **argv, t_data *data);
 void	thread_begin(t_data *data);
 void	*life_process(void *each_ph);
 void	death_check(void *ph_struct);
+void	nav(t_data *data);
+void	philo_parse(t_data *data);
+void	mt_init(t_data *data);
+void	philo_mt_parse(t_data *data);
+void	check_digit(int argc, char **argv);
+void	check_count(int argc);
 
 #endif

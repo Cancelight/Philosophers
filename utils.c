@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/04 17:23:34 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:35:26 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	thread_begin(t_data *data)
 	int	i;
 
 	i = -1;
+	data->thrror_death = pthread_create(&(data->death_ch), NULL, \
+	death_check, data);
+	if (!data->thrror_death)
+		exit_prog("death thread is not created succesfully.");
 	while (i++ < data->ph_count)
 	{
 		data->thrror_action = pthread_create(&(data->philos[i].action), NULL, \
 		life_process, &(data->philos[i]));
-		data->thrror_death = pthread_create(&(data->philos[i].death_ch), NULL, \
-		death_check, &(data->philos[i]));
-		if (!data->thrror_action || !data->thrror_death)
+		if (!data->thrror_action)
 			exit_prog("threads are not created succesfully.");
 	}
 }

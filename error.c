@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/03 14:11:23 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:37:21 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	error_check(int argc, char **argv)
 	check_digit(argc, argv);
 }
 
-static void	check_count(int argc)
+void	check_count(int argc)
 {
 	if (argc == 5 || argc == 6)
 		return ;
@@ -26,14 +26,14 @@ static void	check_count(int argc)
 		exit_prog("Invalid argument count.");
 }
 
-static void	check_digit(int argc, char **argv)
+void	check_digit(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!ft_isdigit(argv[i++]));
+		if (!ft_isdigit(argv[i++]))
 			exit_prog("Non-numeric arguments.");
 	}
 	return ;
