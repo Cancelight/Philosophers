@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 17:27:39 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:00:33 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	*life_process(void *ph_struct)
 {
-	while (((t_philo *)ph_struct)->eat_cnt != ((t_philo *)ph_struct)->info->tot_eat
-	&& ((t_philo *)ph_struct)->flag_dead != 1)
+	t_philo	*phil;
+
+	phil = (t_philo *)ph_struct ;
+	while (phil->eat_cnt != phil->info->tot_eat && phil->flag_dead != 1)
 	{
-		pthread_mutex_lock(&(((t_philo *)ph_struct)->right));
-		pthread_mutex_lock(&(((t_philo *)ph_struct)->left));
+		pthread_mutex_lock(&(phil->right));
+		pthread_mutex_lock(&(phil->left));
 		//print fonksiyonu
 	}
 

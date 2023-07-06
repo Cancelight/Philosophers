@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 15:35:26 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:06:37 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,8 @@ int	ft_strlen(char *s)
 		i++;
 	return (i);
 }
+
+/*long long present(void)
+{
+	return(gettimeofday());
+}*/

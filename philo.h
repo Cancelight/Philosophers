@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 17:37:02 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:05:28 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+
+typedef struct s_philo {
+	int				ph;
+	pthread_t		action;
+	long long		death_time; //devamlı güncellenen ölüm saati
+	int				eat_cnt;
+	int				flag_dead;
+	long long		last_action; //yazdırmak için zaman
+	struct s_data	*info;
+	pthread_mutex_t	right;
+	pthread_mutex_t	left;
+}					t_philo;
 
 typedef struct s_data {
 	t_philo			*philos;
@@ -34,17 +46,6 @@ typedef struct s_data {
 	pthread_mutex_t	*forks;
 }					t_data;
 
-typedef struct s_philo {
-	int				ph;
-	pthread_t		action;
-	int				death_time; // geri sayım için devamlı güncellenen ölüm
-	int				eat_cnt;
-	int				flag_dead;
-	long long		last_action;
-	t_data			*info;
-	pthread_mutex_t	right;
-	pthread_mutex_t	left;
-}					t_philo;
 
 void	error_check(int argc, char **argv);
 int		ft_isdigit(char *str);
