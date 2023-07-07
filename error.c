@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 17:37:21 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:12:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,21 @@ void	check_digit(int argc, char **argv)
 	return ;
 }
 
+int	ph_control(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while(++i < data->ph_count)
+	{
+		if (data->philos[i].flag_dead)
+			return (0);
+	}
+	return (1);
+}
+
 void	exit_prog(char *str)
 {
-	write(2, str, ft_strlen(str));
+	printf("%s",str);
 	exit(0);
 }

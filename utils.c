@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 11:39:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:08:34 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	thread_begin(t_data *data)
 		if (!data->thrror_action)
 			exit_prog("threads are not created succesfully.");
 	}
+}
+
+long long	present(void)
+{
+	struct timeval tval;
+
+	gettimeofday(&tval, NULL);
+	return ((((long long)tval.tv_sec) * 1000) + (tval.tv_usec / 1000));
 }
 
 int	ft_isdigit(char *str)
@@ -72,22 +80,4 @@ int	ft_atoi(const char *s)
 		i++;
 	}
 	return ((int)back);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-long long	present(void)
-{
-	struct timeval tval;
-
-	gettimeofday(&tval, NULL);
-	return ((((long long)tval.tv_sec) * 1000) + (tval.tv_usec / 1000));
 }

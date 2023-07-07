@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 11:41:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 12:15:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,24 @@ void	*life_process(void *ph_struct)
 		pthread_mutex_lock(&(phil->left));
 		phil->last_action = present();
 		print_text(phil->last_action, phil->ph, "has taken a fork");
-		while (phil->flag_dead != 1)
-			if (phil->info->eat_time + phil->last_action <= present())
-				{
-					phil->death_time = present() + phil->info->die_time;
-					
+		eating_process(phil);
 
-				}
 
 	}
 
  //mutex locklar yerleştirilip eat sleep e yönlendirelecek.
  //actionların yazdırılması için bir tane fonksiyon oluştur uygun argümanla ile.
+}
+
+int	eating_process(t_philo *phil)
+{
+	while (ph_control)
+			if (phil->info->eat_time + phil->last_action <= present())
+				{
+					phil->death_time = present() + phil->info->die_time;
+
+
+				}
 }
 
 void	print_text(long long time, int num, char *str)
