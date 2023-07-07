@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 13:44:06 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 14:21:58 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	ph_control(t_data *data)
 		if (data->philos[i].death_time >= present())
 		{
 			data->philos[i].flag_dead = 1;
-			return (0);
+			return (i + 1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 void	exit_prog(char *str)
