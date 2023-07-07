@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 19:14:39 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 20:01:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_philo {
 	int				ph;
 	pthread_t		action;
 	long long		death_time; //devamlı güncellenen ölüm saati
+	int				die_time;
 	int				eat_cnt;
 	int				flag_dead;
 	long long		last_action; //yazdırmak için zaman
