@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 16:45:51 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:43:58 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ph_control(t_data *data)
 	i = -1;
 	while(++i < data->ph_count)
 	{
-		if (data->philos[i].death_time >= present())
+		if (data->philos[i].death_time <= present())
 		{
 			data->philos[i].flag_dead = 1;
 			print_text(data, present(), data->philos[i].ph, "is dead\n");

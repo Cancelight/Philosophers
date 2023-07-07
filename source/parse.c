@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 17:05:55 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:00:56 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse(int argc, char **argv, t_data *data)
 		data->tot_eat = ft_atoi(argv[5]);
 	else
 		data->tot_eat = -1;
-	data->beginnig = present();
+	data->beginning = present();
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
 	philo_parse(data);
@@ -41,7 +41,7 @@ void	philo_parse(t_data *data)
 		data->philos[i].flag_dead = 0;
 		data->philos[i].ph = i + 1;
 		data->philos[i].info = data;
-		data->philos[i].death_time = data->die_time + data->beginnig;
+		data->philos[i].death_time = data->die_time + data->beginning;
 	}
 }
 
@@ -65,9 +65,9 @@ void	philo_mt_parse(t_data *data)
 	while(++f <= l)
 	{
 		if (f == 0)
-			data->philos[f].left = data->forks[l];
+			data->philos[f].left = &(data->forks[l]);
 		else
-			data->philos[f].left = data->forks[f - 1];
-		data->philos[f].right = data->forks[f];
+			data->philos[f].left = &(data->forks[f - 1]);
+		data->philos[f].right = (&data->forks[f]);
 	}
 }

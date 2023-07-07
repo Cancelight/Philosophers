@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 16:47:24 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:00:01 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_philo {
 	int				flag_dead;
 	long long		last_action; //yazdırmak için zaman
 	struct s_data	*info;
-	pthread_mutex_t	right;
-	pthread_mutex_t	left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	*left;
 }					t_philo;
 
 typedef struct s_data {
@@ -40,7 +40,7 @@ typedef struct s_data {
 	int				tot_eat;
 	int				thrror_action;
 	int				thrror_death;
-	long long		beginnig;
+	long long		beginning;
 	pthread_mutex_t	text;
 	pthread_mutex_t	*forks;
 }					t_data;
