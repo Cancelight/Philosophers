@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 13:45:02 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:05:55 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	philo_parse(t_data *data)
 		data->philos[i].info = data;
 		data->philos[i].death_time = data->die_time + data->beginnig;
 	}
-	exit(0);
 }
 
 void	mt_init(t_data *data)
@@ -51,7 +50,7 @@ void	mt_init(t_data *data)
 	int	i;
 
 	i = -1;
-	pthread_mutex_init(&(data->text));
+	pthread_mutex_init(&(data->text), NULL);
 	while (++i < data->ph_count)
 		pthread_mutex_init(&(data->forks[i]), NULL);
 }

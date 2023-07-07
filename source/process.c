@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 14:41:14 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:55:36 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ void	*life_process(void *ph_struct)
 		print_text(phil->info, present(), phil->ph, "has taken a fork\n");
 		phil->last_action = present() + phil->info->eat_time;
 		if (!eating_process(phil))
-			return ;
+			break;
 		pthread_mutex_unlock(&(phil->right));
 		pthread_mutex_unlock(&(phil->left));
 		if (!sleeping_process(phil))
-			return ;
+			break;
 	}
-	return ;
- //mutex locklar yerleştirilip eat sleep e yönlendirelecek.
- //actionların yazdırılması için bir tane fonksiyon oluştur uygun argümanla ile.
+	return (0);
 }
 
 int	eating_process(t_philo *phil)
@@ -72,12 +70,6 @@ int	sleeping_process(t_philo *phil)
 void	print_text(t_data *info, long long time, int num, char *str)
 {
 	pthread_mutex_lock(&(info->text));
-	if (!ph_control(info))
-		printf("%lld philosopher %d %s", (time - info->beginnig), num, str);
+	printf("%lld philosopher %d %s", (time - info->beginnig), num, str);
 	pthread_mutex_unlock(&(info->text));
-}
-
-void	death_check(void *ph_struct)
-{
-
 }
