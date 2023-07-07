@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 18:05:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:30:04 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ typedef struct s_data {
 }					t_data;
 
 
-void	error_check(int argc, char **argv);
-int		ft_isdigit(char *str);
-int		ft_strlen(char *s);
-void	exit_prog(char *str);
-int		ft_atoi(const char *s);
-void	parse(int argc, char **argv, t_data *data);
-void	thread_begin(t_data *data);
-void	*life_process(void *each_ph);
-void	death_check(void *ph_struct);
-void	nav(t_data *data);
-void	philo_parse(t_data *data);
-void	mt_init(t_data *data);
-void	philo_mt_parse(t_data *data);
-void	check_digit(int argc, char **argv);
-void	check_count(int argc);
+void		error_check(int argc, char **argv);
+int			ft_isdigit(char *str);
+int			ft_strlen(char *s);
+void		exit_prog(char *str);
+int			ft_atoi(const char *s);
+void		parse(int argc, char **argv, t_data *data);
+void		thread_begin(t_data *data);
+void		*life_process(void *each_ph);
+void		death_check(void *ph_struct);
+void		nav(t_data *data);
+void		philo_parse(t_data *data);
+void		mt_init(t_data *data);
+void		philo_mt_parse(t_data *data);
+void		check_digit(int argc, char **argv);
+void		check_count(int argc);
+long long	present(void);
 
 #endif

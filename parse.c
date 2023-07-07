@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/06 17:32:35 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:38:44 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	parse(int argc, char **argv, t_data *data)
 	data->death_start = 0;
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
-	printf("bb:%p", data);
 	philo_parse(data);
 	mt_init(data);
 	philo_mt_parse(data);
@@ -44,7 +43,6 @@ void	philo_parse(t_data *data)
 		data->philos[i].ph = i + 1;
 		data->philos[i].info = data;
 	}
-	printf("aa:%p", data->philos[0].info);
 	exit(0);
 }
 
