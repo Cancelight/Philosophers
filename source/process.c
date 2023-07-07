@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 17:59:54 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:19:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*life_process(void *ph_struct)
 	t_philo	*phil;
 
 	phil = (t_philo *)ph_struct;
-	printf("aa\n");
 	while (phil->eat_cnt != phil->info->tot_eat && !ph_control(phil->info))
 	{
 		pthread_mutex_lock(phil->right);
@@ -43,8 +42,7 @@ int	eating_process(t_philo *phil)
 		if (phil->last_action <= present())
 		{
 			phil->death_time = present() + phil->info->die_time;
-			if (!ph_control(phil->info))
-				print_text(phil->info, present(), phil->ph, "is sleeping\n");
+
 			phil->last_action = present() + phil->info->sleep_time;
 			phil->eat_cnt++;
 			return (1);
@@ -56,6 +54,8 @@ int	eating_process(t_philo *phil)
 
 int	sleeping_process(t_philo *phil)
 {
+	if (!ph_control(phil->info))
+		print_text(phil->info, present(), phil->ph, "is sleeping\n");
 	while(!ph_control(phil->info))
 	{
 		if (phil->last_action <= present())
