@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 18:00:56 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:13:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	mt_init(t_data *data)
 	int	i;
 
 	i = -1;
+	pthread_mutex_init(&data->control, NULL);
 	pthread_mutex_init(&(data->text), NULL);
 	while (++i < data->ph_count)
 		pthread_mutex_init(&(data->forks[i]), NULL);

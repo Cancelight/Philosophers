@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 18:19:05 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:11:27 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	eating_process(t_philo *phil)
 		if (phil->last_action <= present())
 		{
 			phil->death_time = present() + phil->info->die_time;
-
 			phil->last_action = present() + phil->info->sleep_time;
 			phil->eat_cnt++;
 			return (1);
