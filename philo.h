@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 12:12:51 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:42:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ typedef struct s_data {
 	int				eat_time;
 	int				sleep_time;
 	int				tot_eat;
-	long long		beg_time;
 	int				thrror_action;
 	int				thrror_death;
-	pthread_t		death_ch;
-	int				death_start; // death threadinin başlama durumu için flag
+	long long		beginnig;
+	pthread_mutex_t	text;
 	pthread_mutex_t	*forks;
 }					t_data;
 
@@ -63,5 +62,7 @@ void		check_digit(int argc, char **argv);
 void		check_count(int argc);
 long long	present(void);
 int			ph_control(t_data *data);
+void		print_text(t_data *data, long long time, int num, char *str);
+
 
 #endif

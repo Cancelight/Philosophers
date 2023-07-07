@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 11:38:44 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:45:02 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse(int argc, char **argv, t_data *data)
 		data->tot_eat = ft_atoi(argv[5]);
 	else
 		data->tot_eat = -1;
-	data->death_start = 0;
+	data->beginnig = present();
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	data->forks = malloc(data->ph_count * sizeof(pthread_mutex_t));
 	philo_parse(data);
@@ -37,11 +37,11 @@ void	philo_parse(t_data *data)
 	i = -1;
 	while (++i < data->ph_count)
 	{
-		data->philos[i].death_time = data->die_time;
 		data->philos[i].eat_cnt = 0;
 		data->philos[i].flag_dead = 0;
 		data->philos[i].ph = i + 1;
 		data->philos[i].info = data;
+		data->philos[i].death_time = data->die_time + data->beginnig;
 	}
 	exit(0);
 }
@@ -51,6 +51,7 @@ void	mt_init(t_data *data)
 	int	i;
 
 	i = -1;
+	pthread_mutex_init(&(data->text));
 	while (++i < data->ph_count)
 		pthread_mutex_init(&(data->forks[i]), NULL);
 }
