@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 16:00:25 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:01:00 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	print_text(t_data *info, long long time, int num, char *str)
 {
 	pthread_mutex_lock(&(info->text));
 	if (!info->gen_death)
-		printf("%lld philosopher %d %s", (time - info->beginning), num, str);
+		printf("%lld ms philosopher %d %s", (time - info->beginning), num, str);
 	pthread_mutex_unlock(&(info->text));
 }
