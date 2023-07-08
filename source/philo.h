@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 20:01:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:42:31 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_data {
 	int				thrror_action;
 	int				thrror_death;
 	long long		beginning;
+	int				gen_death;
+	pthread_mutex_t flag_change;
 	pthread_mutex_t	text;
 	pthread_mutex_t	*forks;
 }					t_data;
@@ -61,7 +63,7 @@ void		philo_mt_parse(t_data *data);
 void		check_digit(int argc, char **argv);
 void		check_count(int argc);
 long long	present(void);
-int			ph_control(t_data *data);
+int			ph_control(t_philo *phil);
 void		print_text(t_data *data, long long time, int num, char *str);
 int			sleeping_process(t_philo *phil);
 int			eating_process(t_philo *phil);

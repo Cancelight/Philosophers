@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/07 19:54:10 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:57:03 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,27 @@ void	check_digit(int argc, char **argv)
 	return ;
 }
 
-int	ph_control(t_data *data)
+int	ph_control(t_philo *phil)
 {
-	int	i;
+	int	static	written = 0;
 
-	i = -1;
-	while(++i < data->ph_count)
+	pthread_mutex_lock(&(phil->info->text));
+	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
-		if (data->philos[i].death_time <= present())
+		phil->flag_dead = 1;
+		if (!written)
 		{
-			data->philos[i].flag_dead = 1;
-			print_text(data, present(), data->philos[i].ph, "is dead\n");
-			return (1);
+			printf("%lld ms Philosopher %d is dead\n", \
+			present() - phil->info->beginning, phil->ph );
+			written = 1;
 		}
+		pthread_mutex_lock(&(phil->info->flag_change));
+		phil->info->gen_death = phil->flag_dead;
+		pthread_mutex_unlock(&(phil->info->flag_change));
+		pthread_mutex_unlock(&(phil->info->text));
+		return (1);
 	}
+	pthread_mutex_unlock(&(phil->info->text));
 	return (0);
 }
 
