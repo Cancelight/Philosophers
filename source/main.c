@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 15:36:25 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:47:22 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ void nav(t_data *data)
 	if (!data->gen_death)
 		printf("Eat count is completed succesfully\n");
 }
+

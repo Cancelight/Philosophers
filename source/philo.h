@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 14:42:31 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:15:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_data {
 	int				eat_time;
 	int				sleep_time;
 	int				tot_eat;
-	int				thrror_action;
-	int				thrror_death;
 	long long		beginning;
 	int				gen_death;
 	pthread_mutex_t flag_change;
@@ -67,6 +65,7 @@ int			ph_control(t_philo *phil);
 void		print_text(t_data *data, long long time, int num, char *str);
 int			sleeping_process(t_philo *phil);
 int			eating_process(t_philo *phil);
+
 
 
 #endif

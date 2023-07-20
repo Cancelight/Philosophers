@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 15:43:39 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:08:24 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,20 @@ void	mt_init(t_data *data)
 	int	i;
 
 	i = -1;
-	pthread_mutex_init(&(data->text), NULL);
-	pthread_mutex_init(&(data->flag_change), NULL);
+	pthread_mutex_init(&data->text, NULL);
+	pthread_mutex_init(&data->flag_change, NULL);
 	while (++i < data->ph_count)
-		pthread_mutex_init(&(data->forks[i]), NULL);
+		pthread_mutex_init(&data->forks[i], NULL);
 }
 
 void	philo_mt_parse(t_data *data)
 {
 	int	f;
-	int	l;
 
 	f = -1;
-	l = data->ph_count - 1;
-	while(++f <= l)
+	while(++f < data->ph_count)
 	{
-		if (f == 0)
-			data->philos[f].left = &(data->forks[l]);
-		else
-			data->philos[f].left = &(data->forks[f - 1]);
-		data->philos[f].right = (&data->forks[f]);
+		data->philos[f].left = &data->forks[f];
+		data->philos[f].right = &data->forks[(f + 1) % (data->ph_count)];
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 16:01:00 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:49:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@ void	*life_process(void *ph_struct)
 	phil = (t_philo *)ph_struct;
 	while (phil->eat_cnt != phil->info->tot_eat && !phil->info->gen_death)
 	{
-		pthread_mutex_lock(phil->right);
 		pthread_mutex_lock(phil->left);
+		pthread_mutex_lock(phil->right);
 		ph_control(phil);
 		print_text(phil->info, present(), phil->ph, "has taken a fork\n");
 		phil->last_action = present() + phil->info->eat_time;
 		eating_process(phil);
-		ph_control(phil);
-		pthread_mutex_unlock(phil->left);
 		pthread_mutex_unlock(phil->right);
-		if (phil->info->gen_death)
+		pthread_mutex_unlock(phil->left);
+		if (ph_control(phil))
 			break;
 		if (!sleeping_process(phil))
 			break;
@@ -71,8 +70,8 @@ int	sleeping_process(t_philo *phil)
 
 void	print_text(t_data *info, long long time, int num, char *str)
 {
-	pthread_mutex_lock(&(info->text));
+	pthread_mutex_lock(&info->text);
 	if (!info->gen_death)
 		printf("%lld ms philosopher %d %s", (time - info->beginning), num, str);
-	pthread_mutex_unlock(&(info->text));
+	pthread_mutex_unlock(&info->text);
 }

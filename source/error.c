@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/08 15:57:03 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:35:12 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ph_control(t_philo *phil)
 {
 	int	static	written = 0;
 
-	pthread_mutex_lock(&(phil->info->text));
+	pthread_mutex_lock(&phil->info->text);
 	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
 		phil->flag_dead = 1;
@@ -53,10 +53,10 @@ int	ph_control(t_philo *phil)
 			present() - phil->info->beginning, phil->ph );
 			written = 1;
 		}
-		pthread_mutex_lock(&(phil->info->flag_change));
+		pthread_mutex_lock(&phil->info->flag_change);
 		phil->info->gen_death = phil->flag_dead;
-		pthread_mutex_unlock(&(phil->info->flag_change));
-		pthread_mutex_unlock(&(phil->info->text));
+		pthread_mutex_unlock(&phil->info->flag_change);
+		pthread_mutex_unlock(&phil->info->text);
 		return (1);
 	}
 	pthread_mutex_unlock(&(phil->info->text));
