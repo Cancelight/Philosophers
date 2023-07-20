@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 19:27:03 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:04:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@ void	*life_process(void *ph_struct)
 		pthread_mutex_lock(phil->left);
 		pthread_mutex_lock(phil->right);
 		ph_control(phil);
-		print_text(phil->info, present(), phil->ph, "has taken a fork\n");
+		wrt_death(phil);
+		print_text(phil, present(), phil->ph, "has taken a fork\n");
 		phil->last_action = present() + phil->info->eat_time;
 		eating_process(phil);
 		pthread_mutex_unlock(phil->right);
 		pthread_mutex_unlock(phil->left);
-		if (ph_control(phil))
+		wrt_death(phil);
+		if (ph_control(phil) || phil->flag_dead)
 			break;
-		if (!sleeping_process(phil))
+		wrt_death(phil);
+		if (phil->flag_dead || !sleeping_process(phil))
 			break;
 	}
 	return (0);
@@ -37,7 +40,7 @@ void	*life_process(void *ph_struct)
 
 int	eating_process(t_philo *phil)
 {
-	print_text(phil->info, present(), phil->ph, "is eating\n");
+	print_text(phil, present(), phil->ph, "is eating\n");
 	while (!ph_control(phil) && !phil->flag_dead)
 	{
 		if (phil->last_action <= present() && !phil->flag_dead)
@@ -47,6 +50,7 @@ int	eating_process(t_philo *phil)
 			phil->eat_cnt++;
 			return (1);
 		}
+		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);
@@ -55,23 +59,24 @@ int	eating_process(t_philo *phil)
 int	sleeping_process(t_philo *phil)
 {
 	if (!phil->flag_dead)
-		print_text(phil->info, present(), phil->ph, "is sleeping\n");
+		print_text(phil, present(), phil->ph, "is sleeping\n");
 	while(!ph_control(phil) && !phil->flag_dead)
 	{
 		if (phil->last_action <= present())
 		{
-			print_text(phil->info, present(), phil->ph, "is thinking\n");
+			print_text(phil, present(), phil->ph, "is thinking\n");
 			return (1);
 		}
+		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);
 }
 
-void	print_text(t_data *info, long long time, int num, char *str)
+void	print_text(t_philo *phil, long long time, int num, char *str)
 {
-	pthread_mutex_lock(&info->text);
-	if (!wrt_death)
-		printf("%lld ms philosopher %d %s", (time - info->beginning), num, str);
-	pthread_mutex_unlock(&info->text);
+	pthread_mutex_lock(&phil->info->text);
+	if (!phil->flag_dead)
+		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), num, str);
+	pthread_mutex_unlock(&phil->info->text);
 }
