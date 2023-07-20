@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 17:49:59 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:27:03 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*life_process(void *ph_struct)
 	t_philo	*phil;
 
 	phil = (t_philo *)ph_struct;
-	while (phil->eat_cnt != phil->info->tot_eat && !phil->info->gen_death)
+	while (phil->eat_cnt != phil->info->tot_eat && !phil->flag_dead)
 	{
 		pthread_mutex_lock(phil->left);
 		pthread_mutex_lock(phil->right);
@@ -38,9 +38,9 @@ void	*life_process(void *ph_struct)
 int	eating_process(t_philo *phil)
 {
 	print_text(phil->info, present(), phil->ph, "is eating\n");
-	while (!ph_control(phil) && !phil->info->gen_death)
+	while (!ph_control(phil) && !phil->flag_dead)
 	{
-		if (phil->last_action <= present() && !phil->info->gen_death)
+		if (phil->last_action <= present() && !phil->flag_dead)
 		{
 			phil->death_time = present() + phil->die_time;
 			phil->last_action = present() + phil->info->sleep_time;
@@ -54,9 +54,9 @@ int	eating_process(t_philo *phil)
 
 int	sleeping_process(t_philo *phil)
 {
-	if (!phil->info->gen_death)
+	if (!phil->flag_dead)
 		print_text(phil->info, present(), phil->ph, "is sleeping\n");
-	while(!ph_control(phil) && !phil->info->gen_death)
+	while(!ph_control(phil) && !phil->flag_dead)
 	{
 		if (phil->last_action <= present())
 		{
@@ -71,7 +71,7 @@ int	sleeping_process(t_philo *phil)
 void	print_text(t_data *info, long long time, int num, char *str)
 {
 	pthread_mutex_lock(&info->text);
-	if (!info->gen_death)
+	if (!wrt_death)
 		printf("%lld ms philosopher %d %s", (time - info->beginning), num, str);
 	pthread_mutex_unlock(&info->text);
 }
