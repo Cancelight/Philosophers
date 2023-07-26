@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:27:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:32:23 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	*life_process(void *ph_struct)
 	phil = (t_philo *)ph_struct;
 	while (phil->eat_cnt != phil->info->tot_eat && !phil->flag_dead)
 	{
-		sem_wait(&phil->info->forks);
-		sem_wait(&phil->info->forks);
+		sem_wait(phil->info->forks);
+		sem_wait(phil->info->forks);
 		ph_control(phil);
 		wrt_death(phil);
 		print_text(phil, present(), phil->ph, "has taken a fork\n");
 		phil->last_action = present() + phil->info->eat_time;
 		eating_process(phil);
-		sem_post(&phil->info->forks);
-		sem_post(&phil->info->forks);
+		sem_post(phil->info->forks);
+		sem_post(phil->info->forks);
 		wrt_death(phil);
 		if (ph_control(phil) || phil->flag_dead)
 			kill(0, 1);
@@ -75,9 +75,9 @@ int	sleeping_process(t_philo *phil)
 
 void	print_text(t_philo *phil, long long time, int num, char *str)
 {
-	sem_wait(&phil->info->text);
+	sem_wait(phil->info->text);
 	if (!phil->flag_dead)
 		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
 				num, str);
-	sem_post(&phil->info->text);
+	sem_post(phil->info->text);
 }

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:23:30 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:32:32 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_atoi(const char *s)
 
 void	wrt_death(t_philo *phil)
 {
-	sem_wait(&phil->info->flag_change);
+	sem_wait(phil->info->flag_change);
 	phil->flag_dead = phil->info->gen_death;
-	sem_post(&phil->info->flag_change);
+	sem_post(phil->info->flag_change);
 }

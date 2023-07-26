@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:23:07 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:32:52 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ph_control(t_philo *phil)
 {
 	int static	written = 0;
 
-	sem_wait(&phil->info->text);
+	sem_wait(phil->info->text);
 	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
 		phil->flag_dead = 1;
@@ -53,13 +53,13 @@ int	ph_control(t_philo *phil)
 			present() - phil->info->beginning, phil->ph);
 			written = 1;
 		}
-		sem_wait(&phil->info->flag_change);
+		sem_wait(phil->info->flag_change);
 		phil->info->gen_death = phil->flag_dead;
-		sem_post(&phil->info->flag_change);
-		sem_post(&phil->info->text);
+		sem_post(phil->info->flag_change);
+		sem_post(phil->info->text);
 		return (1);
 	}
-	sem_post(&phil->info->text);
+	sem_post(phil->info->text);
 	return (0);
 }
 

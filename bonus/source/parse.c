@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:26:35 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:33:21 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	sem_linkage(void)
 
 void	sem_creation(t_data *data)
 {
-	data->forks = *(sem_open("/fork", O_CREAT, S_IRWXU, data->ph_count));
-	data->flag_change = *(sem_open("/flag_change", O_CREAT, S_IRWXU, 1));
-	data->text = *(sem_open("/text", O_CREAT, S_IRWXU, 1));
+	data->forks = sem_open("/fork", O_CREAT, S_IRWXU, data->ph_count);
+	data->flag_change = sem_open("/flag_change", O_CREAT, S_IRWXU, 1);
+	data->text = sem_open("/text", O_CREAT, S_IRWXU, 1);
 }
 
 void	children_post(t_data *data)

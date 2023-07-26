@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:18:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:30:56 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ typedef struct s_data {
 	int				tot_eat;
 	long long		beginning;
 	int				gen_death;
-	sem_t			text;
-	sem_t			flag_change;
-	sem_t			forks;
+	sem_t			*text;
+	sem_t			*flag_change;
+	sem_t			*forks;
 }					t_data;
 
 void		error_check(int argc, char **argv);
