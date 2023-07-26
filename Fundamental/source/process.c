@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 20:04:29 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:23:36 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	*life_process(void *ph_struct)
 		pthread_mutex_unlock(phil->left);
 		wrt_death(phil);
 		if (ph_control(phil) || phil->flag_dead)
-			break;
+			break ;
 		wrt_death(phil);
 		if (phil->flag_dead || !sleeping_process(phil))
-			break;
+			break ;
 	}
 	return (0);
 }
@@ -60,7 +60,7 @@ int	sleeping_process(t_philo *phil)
 {
 	if (!phil->flag_dead)
 		print_text(phil, present(), phil->ph, "is sleeping\n");
-	while(!ph_control(phil) && !phil->flag_dead)
+	while (!ph_control(phil) && !phil->flag_dead)
 	{
 		if (phil->last_action <= present())
 		{
@@ -77,6 +77,7 @@ void	print_text(t_philo *phil, long long time, int num, char *str)
 {
 	pthread_mutex_lock(&phil->info->text);
 	if (!phil->flag_dead)
-		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), num, str);
+		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
+				num, str);
 	pthread_mutex_unlock(&phil->info->text);
 }

@@ -3,9 +3,9 @@ SRCS = ./source/main.c \
 		./source/error.c \
 		./source/parse.c \
 		./source/process.c
-NAME = philo
+NAME = philo_bonus
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lpthread -g -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -lpthread
 RM = rm -rf
 LIBC = ar -rcs
 

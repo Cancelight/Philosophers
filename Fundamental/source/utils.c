@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 19:18:21 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:24:09 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	thread_begin(t_data *data)
 
 long long	present(void)
 {
-	struct timeval tval;
+	struct timeval	tval;
 
 	gettimeofday(&tval, NULL);
 	return ((((long long)tval.tv_sec) * 1000) + (tval.tv_usec / 1000));
@@ -38,12 +38,12 @@ long long	present(void)
 
 int	ft_isdigit(char *str)
 {
-	int i;
+	int	i;
 
 	if (str == NULL || str[0] == 0)
 		return (0);
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
 		if (!(str[i] <= 57 && str[i] >= 48))
 			return (0);

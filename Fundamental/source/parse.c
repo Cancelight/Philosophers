@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 14:08:24 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:21:26 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	philo_mt_parse(t_data *data)
 	int	f;
 
 	f = -1;
-	while(++f < data->ph_count)
+	while (++f < data->ph_count)
 	{
 		data->philos[f].left = &data->forks[f];
 		data->philos[f].right = &data->forks[(f + 1) % (data->ph_count)];

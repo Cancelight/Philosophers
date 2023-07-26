@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/19 14:47:22 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:21:06 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	nav(data);
 }
 
-void nav(t_data *data)
+void	nav(t_data *data)
 {
 	if (data->ph_count == 1)
 		write(1, "bir philo için fonksiyon", 20);
@@ -31,4 +31,3 @@ void nav(t_data *data)
 	if (!data->gen_death)
 		printf("Eat count is completed succesfully\n");
 }
-

@@ -6,11 +6,11 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/20 13:35:12 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:23:07 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	error_check(int argc, char **argv)
 {
@@ -34,37 +34,37 @@ void	check_digit(int argc, char **argv)
 	while (i < argc)
 	{
 		if (!ft_isdigit(argv[i++]))
-			exit_prog("Non-numeric arguments.");
+			exit_prog("Non-natural numeric arguments.");
 	}
 	return ;
 }
 
 int	ph_control(t_philo *phil)
 {
-	int	static	written = 0;
+	int static	written = 0;
 
-	pthread_mutex_lock(&phil->info->text);
+	sem_wait(&phil->info->text);
 	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
 		phil->flag_dead = 1;
 		if (!written)
 		{
 			printf("%lld ms Philosopher %d is dead\n", \
-			present() - phil->info->beginning, phil->ph );
+			present() - phil->info->beginning, phil->ph);
 			written = 1;
 		}
-		pthread_mutex_lock(&phil->info->flag_change);
+		sem_wait(&phil->info->flag_change);
 		phil->info->gen_death = phil->flag_dead;
-		pthread_mutex_unlock(&phil->info->flag_change);
-		pthread_mutex_unlock(&phil->info->text);
+		sem_post(&phil->info->flag_change);
+		sem_post(&phil->info->text);
 		return (1);
 	}
-	pthread_mutex_unlock(&(phil->info->text));
+	sem_post(&phil->info->text);
 	return (0);
 }
 
 void	exit_prog(char *str)
 {
-	printf("%s",str);
+	printf("%s", str);
 	exit(0);
 }
