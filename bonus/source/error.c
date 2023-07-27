@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 13:33:35 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:32:43 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ void	check_digit(int argc, char **argv)
 int	ph_control(t_philo *phil)
 {
 	int static written= 0;
-
 	sem_wait(phil->info->text);
 	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
 		phil->flag_dead = 1;
-		usleep(250);
+		usleep(300);
 		if (!written)
 		{
 			printf("%lld ms Philosopher %d is dead\n", \
