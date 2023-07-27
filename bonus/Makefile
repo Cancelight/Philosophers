@@ -5,7 +5,7 @@ SRCS = ./source/main.c \
 		./source/process.c
 NAME = philo_bonus
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lpthread
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 LIBC = ar -rcs
 

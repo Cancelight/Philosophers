@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:32:23 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:39:09 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	*life_process(void *ph_struct)
 		sem_post(phil->info->forks);
 		wrt_death(phil);
 		if (ph_control(phil) || phil->flag_dead)
-			kill(0, 1);
+			exit (-1);
 		wrt_death(phil);
 		if (phil->flag_dead || !sleeping_process(phil))
-			kill(0, 1);
+			exit(-1);
 	}
 	return (0);
 }

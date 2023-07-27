@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/26 16:33:21 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:32:04 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,34 @@ void	sem_creation(t_data *data)
 void	children_post(t_data *data)
 {
 	int		i;
-	pid_t	pid;
+	int		*pid;
+	int a = 0;
+	int b = 0;
 
+	pid = malloc(sizeof(int) * data->ph_count);
 	i = -1;
 	while (++i < data->ph_count)
 	{
-		pid = fork();
-		if (pid == 0)
+		pid[i] = fork();
+		if (pid[i] == 0)
+		{
+			printf("childin giriş sayısı = %d\n", ++a);
 			life_process(&data->philos[i]);
+			//exit(0); // bunu yapınca askıda klamyı veya print yenilemeyi bıraktı ama neden  bunları yapıyordu?
+			printf("childin processten çıkış sayısı: %d\n", ++b);
+		}
 	}
+	ending_children(data, pid);
+}
+
+void	ending_children(t_data *data, int *pid)
+{
+	int	i;
+	int	end;
+
+	i = -1;
+	waitpid(-1, &end, 0);
+	while(++i < data->ph_count)
+		kill(pid[i], 15);
+	free (pid);
 }
