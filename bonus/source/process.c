@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 16:32:57 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:36:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,13 @@ void	*life_process(void *ph_struct)
 		sem_wait(phil->info->forks);
 		sem_wait(phil->info->forks);
 		ph_control(phil);
-		wrt_death(phil);
 		print_text(phil, present(), phil->ph, "has taken a fork\n");
 		phil->last_action = present() + phil->info->eat_time;
 		eating_process(phil);
 		sem_post(phil->info->forks);
 		sem_post(phil->info->forks);
-		wrt_death(phil);
 		if (ph_control(phil) || phil->flag_dead)
 			exit (-1);
-		wrt_death(phil);
 		if (phil->flag_dead || !sleeping_process(phil))
 			exit(-1);
 	}
@@ -50,7 +47,6 @@ int	eating_process(t_philo *phil)
 			phil->eat_cnt++;
 			return (1);
 		}
-		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);
@@ -67,7 +63,6 @@ int	sleeping_process(t_philo *phil)
 			print_text(phil, present(), phil->ph, "is thinking\n");
 			return (1);
 		}
-		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 14:04:58 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:33:57 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	nav(t_data *data)
 
 void	one_philo(t_data *data)
 {
+	printf("%lld ms Philosopher %d hsa taken a fork\n", \
+		present() - data->beginning, data->philos[0].ph);
 	while(!data->philos[0].flag_dead)
 	{
 		ph_control(&data->philos[0]);

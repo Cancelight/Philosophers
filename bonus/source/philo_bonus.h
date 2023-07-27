@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 15:42:52 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:35:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int			ph_control(t_philo *phil);
 void		print_text(t_philo *phil, long long time, int num, char *str);
 int			sleeping_process(t_philo *phil);
 int			eating_process(t_philo *phil);
-void		wrt_death(t_philo *phil);
 void		ending_children(t_data *data, int *pid);
 void		one_philo(t_data *data);
 

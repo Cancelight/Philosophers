@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 16:33:09 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:36:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,4 @@ int	ft_atoi(const char *s)
 		i++;
 	}
 	return ((int)back);
-}
-
-void	wrt_death(t_philo *phil)
-{
-	sem_wait(phil->info->flag_change);
-	phil->flag_dead = phil->info->gen_death;
-	sem_post(phil->info->flag_change);
 }

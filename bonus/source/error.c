@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 16:32:43 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:39:56 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ int	ph_control(t_philo *phil)
 	if (phil->death_time <= present() && !phil->info->gen_death)
 	{
 		phil->flag_dead = 1;
-		usleep(300);
+		usleep(230);
 		if (!written)
 		{
 			printf("%lld ms Philosopher %d is dead\n", \
 			present() - phil->info->beginning, phil->ph);
 			written = 1;
 		}
-		sem_wait(phil->info->flag_change);
-		phil->info->gen_death = phil->flag_dead;
-		sem_post(phil->info->flag_change);
-		sem_post(phil->info->text);
 		exit (-1);
+/*		sem_wait(phil->info->flag_change);
+		phil->info->gen_death = phil->flag_dead;
+		sem_post(phil->info->flag_change);*/
+		sem_post(phil->info->text);
 	}
 	sem_post(phil->info->text);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/21 11:23:36 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:32:16 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*life_process(void *ph_struct)
 		pthread_mutex_lock(phil->right);
 		ph_control(phil);
 		wrt_death(phil);
-		print_text(phil, present(), phil->ph, "has taken a fork\n");
+		print_text(phil, present(), phil->ph, "has taken forks\n");
 		phil->last_action = present() + phil->info->eat_time;
 		eating_process(phil);
 		pthread_mutex_unlock(phil->right);
