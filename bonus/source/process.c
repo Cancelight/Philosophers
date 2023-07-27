@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 17:36:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:06:09 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*life_process(void *ph_struct)
 	t_philo	*phil;
 
 	phil = (t_philo *)ph_struct;
-	while (phil->eat_cnt != phil->info->tot_eat && !phil->flag_dead)
+	while (phil->eat_cnt != phil->info->tot_eat)
 	{
 		sem_wait(phil->info->forks);
 		sem_wait(phil->info->forks);
@@ -27,20 +27,18 @@ void	*life_process(void *ph_struct)
 		eating_process(phil);
 		sem_post(phil->info->forks);
 		sem_post(phil->info->forks);
-		if (ph_control(phil) || phil->flag_dead)
-			exit (-1);
-		if (phil->flag_dead || !sleeping_process(phil))
-			exit(-1);
+		ph_control(phil);
+		sleeping_process(phil);
 	}
-	return (0);
+	exit (0);
 }
 
 int	eating_process(t_philo *phil)
 {
 	print_text(phil, present(), phil->ph, "is eating\n");
-	while (!ph_control(phil) && !phil->flag_dead)
+	while (!ph_control(phil))
 	{
-		if (phil->last_action <= present() && !phil->flag_dead)
+		if (phil->last_action <= present())
 		{
 			phil->death_time = present() + phil->die_time;
 			phil->last_action = present() + phil->info->sleep_time;
@@ -54,9 +52,8 @@ int	eating_process(t_philo *phil)
 
 int	sleeping_process(t_philo *phil)
 {
-	if (!phil->flag_dead)
-		print_text(phil, present(), phil->ph, "is sleeping\n");
-	while (!ph_control(phil) && !phil->flag_dead)
+	print_text(phil, present(), phil->ph, "is sleeping\n");
+	while (!ph_control(phil))
 	{
 		if (phil->last_action <= present())
 		{
@@ -71,8 +68,7 @@ int	sleeping_process(t_philo *phil)
 void	print_text(t_philo *phil, long long time, int num, char *str)
 {
 	sem_wait(phil->info->text);
-	if (!phil->flag_dead)
-		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
-				num, str);
+	printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
+			num, str);
 	sem_post(phil->info->text);
 }

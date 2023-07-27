@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:26:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 16:30:53 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:46:09 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	parse(int argc, char **argv, t_data *data)
 	else
 		data->tot_eat = -1;
 	data->beginning = present();
-	data->gen_death = 0;
 	data->philos = malloc(data->ph_count * sizeof(t_philo));
 	philo_parse(data);
 	sem_linkage();
@@ -38,7 +37,6 @@ void	philo_parse(t_data *data)
 	while (++i < data->ph_count)
 	{
 		data->philos[i].eat_cnt = 0;
-		data->philos[i].flag_dead = 0;
 		data->philos[i].ph = i + 1;
 		data->philos[i].info = data;
 		data->philos[i].die_time = data->die_time;
@@ -49,13 +47,11 @@ void	philo_parse(t_data *data)
 void	sem_linkage(void)
 {
 	sem_unlink("/fork");
-	sem_unlink("/flag_change");
 	sem_unlink("/text");
 }
 
 void	sem_creation(t_data *data)
 {
 	data->forks = sem_open("/fork", O_CREAT, S_IRWXU, data->ph_count);
-	data->flag_change = sem_open("/flag_change", O_CREAT, S_IRWXU, 1);
 	data->text = sem_open("/text", O_CREAT, S_IRWXU, 1);
 }

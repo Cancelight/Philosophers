@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:48:37 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 17:38:45 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:14:44 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	nav(t_data *data)
 
 void	one_philo(t_data *data)
 {
-	while (!data->philos[0].flag_dead)
+	printf("%lld ms Philosopher %d hsa taken a fork\n", \
+		present() - data->beginning, data->philos[0].ph);
+	while (1)
 	{
 		ph_control(&data->philos[0]);
 		usleep(50);
@@ -42,7 +44,7 @@ void	children_post(t_data *data)
 		if (pid[i] == 0)
 		{
 			life_process(&data->philos[i]);
-			exit(0); // bunu yapınca askıda klamyı veya print yenilemeyi bıraktı ama neden  bunları yapıyordu?
+			break;
 		}
 		usleep(100);
 	}
@@ -56,14 +58,14 @@ void	ending_children(t_data *data, int *pid)
 
 	i = -1;
 	waitpid(-1, &end, 0);
-	while(++i < data->ph_count && end != 0)
+	printf("end değeri : %d", end);
+	while(++i < data->ph_count)
 		kill(pid[i], 15);
-	sem_post(data->text);
+	if (end != 0)
+		sem_post(data->text);
 	free (pid);
-	sem_unlink("/flag_change");
 	sem_unlink("/text");
 	sem_unlink("/fork");
-	sem_close(data->flag_change);
 	sem_close(data->text);
 	sem_close(data->forks);
 }

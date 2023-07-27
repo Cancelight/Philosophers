@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:28:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 17:35:59 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:45:27 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philo {
 	long long		death_time;
 	int				die_time;
 	int				eat_cnt;
-	int				flag_dead;
 	long long		last_action;
 	struct s_data	*info;
 }					t_philo;
@@ -42,9 +41,7 @@ typedef struct s_data {
 	int				sleep_time;
 	int				tot_eat;
 	long long		beginning;
-	int				gen_death;
 	sem_t			*text;
-	sem_t			*flag_change;
 	sem_t			*forks;
 }					t_data;
 
