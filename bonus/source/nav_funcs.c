@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:48:37 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 18:14:44 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:04:37 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ void	children_post(t_data *data)
 	{
 		pid[i] = fork();
 		if (pid[i] == 0)
-		{
 			life_process(&data->philos[i]);
-			break;
-		}
 		usleep(100);
 	}
 	ending_children(data, pid);
@@ -58,11 +55,14 @@ void	ending_children(t_data *data, int *pid)
 
 	i = -1;
 	waitpid(-1, &end, 0);
-	printf("end değeri : %d", end);
-	while(++i < data->ph_count)
-		kill(pid[i], 15);
 	if (end != 0)
+	{
+		while(++i < data->ph_count)
+			kill(pid[i], 15);
 		sem_post(data->text);
+	}
+	else
+		while(waitpid(-1, &end, 0) != -1);
 	free (pid);
 	sem_unlink("/text");
 	sem_unlink("/fork");
