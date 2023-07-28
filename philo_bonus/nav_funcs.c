@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:48:37 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 19:10:57 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:37:20 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	nav(t_data *data)
 	if (data->ph_count == 1)
 		one_philo(data);
 	else if (data->ph_count > 1)
+	{
 		children_post(data);
+		unlinkage(data);
+	}
 }
 
 void	one_philo(t_data *data)
@@ -57,13 +60,18 @@ void	ending_children(t_data *data, int *pid)
 	waitpid(-1, &end, 0);
 	if (end != 0)
 	{
-		while(++i < data->ph_count)
+		while (++i < data->ph_count)
 			kill(pid[i], 15);
 		sem_post(data->text);
 	}
 	else
-		while(waitpid(-1, &end, 0) != -1);
+		while (waitpid(-1, &end, 0) != -1)
+			;
 	free (pid);
+}
+
+void	unlinkage(t_data *data)
+{
 	sem_unlink("/text");
 	sem_unlink("/fork");
 	sem_close(data->text);
