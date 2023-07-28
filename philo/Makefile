@@ -5,7 +5,7 @@ SRCS = ./main.c \
 		./process.c
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lpthread
+CFLAGS = -Wall -Werror -Wextra -lpthread 
 RM = rm -rf
 LIBC = ar -rcs
 
