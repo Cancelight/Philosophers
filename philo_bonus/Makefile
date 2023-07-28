@@ -1,9 +1,9 @@
-SRCS = ./source/main.c \
-		./source/utils.c \
-		./source/error.c \
-		./source/parse.c \
-		./source/process.c \
-		./source/nav_funcs.c 
+SRCS = ./main.c \
+		./utils.c \
+		./error.c \
+		./parse.c \
+		./process.c \
+		./nav_funcs.c
 NAME = philo_bonus
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra

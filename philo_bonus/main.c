@@ -6,11 +6,11 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:26:55 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 15:33:57 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:28:40 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	main(int argc, char **argv)
 {
@@ -20,23 +20,4 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	parse(argc, argv, data);
 	nav(data);
-}
-
-void	nav(t_data *data)
-{
-	if (data->ph_count == 1)
-		one_philo(data);
-	else if (data->ph_count > 1)
-		thread_begin(data);
-}
-
-void	one_philo(t_data *data)
-{
-	printf("%lld ms Philosopher %d hsa taken a fork\n", \
-		present() - data->beginning, data->philos[0].ph);
-	while(!data->philos[0].flag_dead)
-	{
-		ph_control(&data->philos[0]);
-		usleep(50);
-	}
 }

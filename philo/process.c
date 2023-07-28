@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 15:32:16 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:22:18 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*life_process(void *ph_struct)
 		wrt_death(phil);
 		print_text(phil, present(), phil->ph, "has taken forks\n");
 		phil->last_action = present() + phil->info->eat_time;
+		wrt_death(phil);
 		eating_process(phil);
 		pthread_mutex_unlock(phil->right);
 		pthread_mutex_unlock(phil->left);
@@ -34,15 +35,18 @@ void	*life_process(void *ph_struct)
 		wrt_death(phil);
 		if (phil->flag_dead || !sleeping_process(phil))
 			break ;
+		wrt_death(phil);
 	}
 	return (0);
 }
 
 int	eating_process(t_philo *phil)
 {
-	print_text(phil, present(), phil->ph, "is eating\n");
+	if (!phil->flag_dead)
+		print_text(phil, present(), phil->ph, "is eating\n");
 	while (!ph_control(phil) && !phil->flag_dead)
 	{
+		wrt_death(phil);
 		if (phil->last_action <= present() && !phil->flag_dead)
 		{
 			phil->death_time = present() + phil->die_time;
@@ -50,7 +54,6 @@ int	eating_process(t_philo *phil)
 			phil->eat_cnt++;
 			return (1);
 		}
-		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);
@@ -62,12 +65,12 @@ int	sleeping_process(t_philo *phil)
 		print_text(phil, present(), phil->ph, "is sleeping\n");
 	while (!ph_control(phil) && !phil->flag_dead)
 	{
-		if (phil->last_action <= present())
+		wrt_death(phil);
+		if (phil->last_action <= present() && !phil->flag_dead)
 		{
 			print_text(phil, present(), phil->ph, "is thinking\n");
 			return (1);
 		}
-		wrt_death(phil);
 		usleep(50);
 	}
 	return (0);
@@ -76,6 +79,7 @@ int	sleeping_process(t_philo *phil)
 void	print_text(t_philo *phil, long long time, int num, char *str)
 {
 	pthread_mutex_lock(&phil->info->text);
+	wrt_death(phil);
 	if (!phil->flag_dead)
 		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
 				num, str);
