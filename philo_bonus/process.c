@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/27 18:55:27 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 14:06:11 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,23 @@ void	print_text(t_philo *phil, long long time, int num, char *str)
 	printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
 			num, str);
 	sem_post(phil->info->text);
+}
+
+int	ph_control(t_philo *phil)
+{
+	int static	written = 0;
+
+	sem_wait(phil->info->text);
+	if (phil->death_time <= present())
+	{
+		if (!written)
+		{
+			printf("%lld ms Philosopher %d is dead\n", \
+			present() - phil->info->beginning, phil->ph);
+			written = 1;
+		}
+		exit (-1);
+	}
+	sem_post(phil->info->text);
+	return (0);
 }

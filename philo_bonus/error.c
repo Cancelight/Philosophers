@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:39:51 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/28 15:33:16 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 14:06:06 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,6 @@ void	check_digit(int argc, char **argv)
 			exit_prog("Non-natural numeric arguments.");
 	}
 	return ;
-}
-
-int	ph_control(t_philo *phil)
-{
-	int static	written = 0;
-
-	sem_wait(phil->info->text);
-	if (phil->death_time <= present())
-	{
-		if (!written)
-		{
-			printf("%lld ms Philosopher %d is dead\n", \
-			present() - phil->info->beginning, phil->ph);
-			written = 1;
-		}
-		exit (-1);
-	}
-	sem_post(phil->info->text);
-	return (0);
 }
 
 void	exit_prog(char *str)
