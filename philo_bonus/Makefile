@@ -15,9 +15,11 @@ all: ${NAME}
 $(NAME): $(SRCS)
 	@gcc $(CFLAGS) $(SRCS) -o $(NAME)
 
+clean:
+
 fclean:
 	@${RM} $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus fclean re
+.PHONY: all bonus clean fclean re

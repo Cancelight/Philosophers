@@ -6,27 +6,11 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 13:54:01 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/21 11:24:09 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 13:57:47 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	thread_begin(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->ph_count)
-	{
-		if (pthread_create(&data->philos[i].action, NULL, \
-					life_process, &data->philos[i]))
-			exit_prog("threads are not created succesfully.");
-	}
-	i = -1;
-	while (++i < data->ph_count)
-		pthread_join(data->philos[i].action, NULL);
-}
 
 long long	present(void)
 {

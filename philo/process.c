@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/28 15:30:07 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 14:01:45 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,28 @@ void	print_text(t_philo *phil, long long time, int num, char *str)
 		printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
 				num, str);
 	pthread_mutex_unlock(&phil->info->text);
+}
+
+int	ph_control(t_philo *phil)
+{
+	int static	written = 0;
+
+	pthread_mutex_lock(&phil->info->text);
+	if (phil->death_time <= present() && !phil->info->gen_death)
+	{
+		phil->flag_dead = 1;
+		if (!written)
+		{
+			printf("%lld ms Philosopher %d is dead\n", \
+			present() - phil->info->beginning, phil->ph);
+			written = 1;
+		}
+		pthread_mutex_lock(&phil->info->flag_change);
+		phil->info->gen_death = phil->flag_dead;
+		pthread_mutex_unlock(&phil->info->flag_change);
+		pthread_mutex_unlock(&phil->info->text);
+		return (1);
+	}
+	pthread_mutex_unlock(&(phil->info->text));
+	return (0);
 }
