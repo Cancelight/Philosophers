@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:48:37 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/28 15:37:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:24:46 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@ void	nav(t_data *data)
 	if (data->ph_count == 1)
 		one_philo(data);
 	else if (data->ph_count > 1)
-	{
 		children_post(data);
-		unlinkage(data);
-	}
+	unlinkage(data);
 }
 
 void	one_philo(t_data *data)
 {
-	printf("%lld ms Philosopher %d hsa taken a fork\n", \
+	sem_wait(data->forks);
+	printf("%lld ms Philosopher %d has taken a fork\n", \
 		present() - data->beginning, data->philos[0].ph);
 	while (1)
 	{
-		ph_control(&data->philos[0]);
+		if (ph_control(&data->philos[0]))
+			break ;
 		usleep(50);
 	}
+	sem_post(data->forks);
 }
 
 void	children_post(t_data *data)
@@ -44,6 +45,11 @@ void	children_post(t_data *data)
 	while (++i < data->ph_count)
 	{
 		pid[i] = fork();
+		if (pid[i] < 0)
+		{
+			free(pid);
+			exit (-1);
+		}
 		if (pid[i] == 0)
 			life_process(&data->philos[i]);
 		usleep(100);

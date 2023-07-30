@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:39:56 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/29 14:06:11 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:24:56 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	print_text(t_philo *phil, long long time, int num, char *str)
 	printf("%lld ms philosopher %d %s", (time - phil->info->beginning), \
 			num, str);
 	sem_post(phil->info->text);
+	usleep(1);
 }
 
 int	ph_control(t_philo *phil)
@@ -86,7 +87,10 @@ int	ph_control(t_philo *phil)
 			present() - phil->info->beginning, phil->ph);
 			written = 1;
 		}
-		exit (-1);
+		if (phil->info->ph_count != 1)
+			exit (-1);
+		else
+			return (-1);
 	}
 	sem_post(phil->info->text);
 	return (0);

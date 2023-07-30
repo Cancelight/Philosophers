@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:57:21 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/07/29 13:58:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/07/29 14:32:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	nav(t_data *data)
 
 void	one_philo(t_data *data)
 {
+	pthread_mutex_lock(&data->forks[0]);
 	printf("%lld ms Philosopher %d has taken a fork\n", \
 		present() - data->beginning, data->philos[0].ph);
 	while (!data->philos[0].flag_dead)
@@ -29,6 +30,7 @@ void	one_philo(t_data *data)
 		ph_control(&data->philos[0]);
 		usleep(50);
 	}
+	pthread_mutex_unlock(&data->forks[0]);
 }
 
 void	thread_begin(t_data *data)
